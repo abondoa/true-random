@@ -1,6 +1,6 @@
 #pragma once
-#include <boost/circular_buffer.hpp>
 #include <boost/thread.hpp>
+#include <boost/circular_buffer.hpp>
 #include "asyncbitgenerator.h"
 
 namespace Random
@@ -24,7 +24,7 @@ namespace Random
       IntegerGenerator(int);
       ~IntegerGenerator(void);
 
-      int GetInteger(int,int);
+      int GetInteger(int min = 0,int max = (1<<31)-1);
       void SetBit(int,int);
    };
 

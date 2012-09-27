@@ -41,7 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\aba\Documents\Visual Studio 2012\Projects\Random\Random;$(IncludePath)</IncludePath>
+    <IncludePath>C:\libs\boost_1_51_0;C:\Users\aba\Documents\Visual Studio 2012\Projects\Random\Random;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\libs\boost_1_51_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>

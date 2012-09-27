@@ -33,7 +33,7 @@ namespace Random
       delete _mutex;
    }
    
-   int IntegerGenerator::GetInteger(int min = 0, int max = (1<<31)-1) 
+   int IntegerGenerator::GetInteger(int min, int max) 
    {
       _mutex->lock();
       while(_buffer->empty())
@@ -42,7 +42,7 @@ namespace Random
          boost::this_thread::yield();
          _mutex->lock();
       }
-      int result = _buffer->front();
+      int result = (_buffer->front())%(max-min)+min;
       _buffer->pop_front();
       _mutex->unlock();
       return result;

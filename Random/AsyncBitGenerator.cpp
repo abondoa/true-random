@@ -14,7 +14,7 @@ namespace Random
 
    AsyncBitGenerator::~AsyncBitGenerator(void)
    {
-      Stop();
+      while(!Stop()){}
       delete _mutex;
       if(_generatorThread != 0)
       {
@@ -37,10 +37,15 @@ namespace Random
 
    bool AsyncBitGenerator::Stop(void)
    {
+      if(!_running)
+      {
+         return true;
+      }
       if(_mutex->try_lock())
       {
          _running = false;
          _generatorThread->join();
+         delete _generatorThread;
          _generatorThread = 0;
          _mutex->unlock();
 
