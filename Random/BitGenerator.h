@@ -9,7 +9,7 @@ namespace Random
       int nextBit;
 
    public:
-      BitGenerator(void);
+      BitGenerator(int);
       ~BitGenerator(void);
 
       int GetBit(void);

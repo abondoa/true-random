@@ -1,16 +1,27 @@
 #include <iostream>
-#include "../Random/IntegerGenerator.h"
+#include "../Random/SourceOfNondeterminism.h"
 
 using namespace std;
 using namespace Random;
 
 int main(int argc, char** argv)
 {
-   IntegerGenerator gen = IntegerGenerator(10);
-   for(int i = 0 ; i < 100 ; ++i)
+   SourceOfNondeterminism gen = SourceOfNondeterminism(10);
+   int cur = -999;
+   int last = 999;
+   int max = 1000000;
+   int count = 0;
+   for(int i = 0 ; i < max ; ++i)
    {
-      cout << gen.GetInteger(0,10) << endl;
+      cur = (int)gen.GetBytes(1).at(0);
+      if(cur == last)
+      {
+         ++count;
+         //cout << i << ": " << cur << endl;
+      }
+      last = cur;
    }
+   cout << "Total: " << count << ": " << (double)max/(count*256) << endl;
    string str;
    cin >> str;
    return 0;

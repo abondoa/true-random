@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "BitGenerator.h"
+#include <exception>
 
 namespace Random
 {
-   BitGenerator::BitGenerator(void)
+   BitGenerator::BitGenerator(int firstBit)
    {
-      nextBit = 0;
+      if(firstBit < 0 || firstBit > 1)
+      {
+         throw std::exception("It's not a bit value: " + firstBit);
+      }
+      nextBit = firstBit;
    }
 
    BitGenerator::~BitGenerator(void)

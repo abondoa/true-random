@@ -3,7 +3,8 @@
 
 namespace Random
 {
-   AsyncBitGenerator::AsyncBitGenerator(boost::function<void(int,int)> bitSetter, int bitMaskAssociation)
+   AsyncBitGenerator::AsyncBitGenerator(boost::function<void(int,int)> bitSetter, int bitMaskAssociation) :
+      BitGenerator(1)
    {
       _mutex = new boost::mutex();
       _generatorThread = 0;
