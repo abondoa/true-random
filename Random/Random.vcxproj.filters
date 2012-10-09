@@ -33,10 +33,16 @@
     <ClInclude Include="AsyncBitGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="IntegerGenerator.h">
+    <ClInclude Include="SourceOfNondeterminism.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SourceOfNondeterminism.h">
+    <ClInclude Include="Generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceOfNondeterminismFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedSourceOfNondeterminism.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +59,16 @@
     <ClCompile Include="AsyncBitGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="IntegerGenerator.cpp">
+    <ClCompile Include="SourceOfNondeterminism.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SourceOfNondeterminism.cpp">
+    <ClCompile Include="Generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceOfNondeterminismFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadedSourceOfNondeterminism.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
