@@ -3,17 +3,24 @@
 #include "../Random/SourceOfNondeterminismFactory.h"
 #include "../Random/Generator.h"
 #include <cmath>
+#include <fstream>
 
 using namespace std;
 using namespace Random;
 template<class T> void repititionTest(int max);
+void distribution(long, bool toCsv = false);
 
 SourceOfNondeterminism* sod;
 int main(int argc, char** argv)
 {
    sod = SourceOfNondeterminismFactory::GetInstance()->Create();
-   repititionTest<short>(20000000);
-   repititionTest<char>(20000000);
+   //repititionTest<short>(20000000);
+   //repititionTest<char>(20000000);
+   distribution(2000000000,true);
+   string str;
+   cin >> str;
+
+   return 0;
 }
 
 template<class T> void repititionTest(int max)
@@ -35,7 +42,52 @@ template<class T> void repititionTest(int max)
    }
    
    cout << "Repitition test on: " << count << " numbers, with a repitition factor of: " << (double)max/(count*pow(256,sizeof(T))) << " (close to 1 is good)" << endl;
-   string str;
-   cin >> str;
    return;
 }
+
+void distribution(long noOfSamples, bool toCsv)
+{
+   Generator<unsigned char> gen(sod);
+   vector<long> samples(256);
+
+   for(int i = 0 ; i < 256 ; ++i)
+   {
+      samples[i] = 0;
+   }
+   
+   unsigned char *ptr = new unsigned char;
+   for(long i = 0 ; i < noOfSamples ; ++i)
+   {
+      gen.Generate(ptr);
+      samples[*ptr]++;
+   }
+
+   // Assume x is in the correct range (0 <= x <= 9999)
+   char target[5];
+   if(toCsv)
+   {
+      ofstream file;
+      file.open("distribution.csv");
+      
+      for(int i = 0 ; i < 256 ; ++i)
+      {
+         sprintf(target, "%03d", i);
+         file << target << "," << samples[i] << endl;
+      }
+
+      file.close();
+   }
+   else
+   {
+      cout << "Distribution:" << endl;
+
+      for(int i = 0 ; i < 256 ; ++i)
+      {
+         sprintf(target, "%03d", i);
+         cout << target << " : " << samples[i] << endl;
+      }
+   }
+}
+
+
+
