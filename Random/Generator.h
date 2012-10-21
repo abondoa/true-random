@@ -2,6 +2,7 @@
 #include "SourceOfNondeterminism.h"
 #include <cstring>
 
+using namespace std;
 
 namespace Random
 {
@@ -23,13 +24,12 @@ public:
 
    T* Generate(T* ptr)
    {
-      char* temp = new char[_typeSize];
+      //char* temp = new char[_typeSize];
+      vector<char> temp = _source->GetBytes(_typeSize);
       for(int i = 0; i < _typeSize; ++i)
       {
-         temp[i] = _source->GetBytes(1)[0];
+         ptr[i] = temp[i];
       }
-      memcpy(ptr,temp,_typeSize);
-      delete temp;
       return ptr;
    }
 };
