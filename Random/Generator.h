@@ -26,9 +26,10 @@ public:
    {
       //char* temp = new char[_typeSize];
       vector<char> temp = _source->GetBytes(_typeSize);
+      char *tempPtr = (char*)ptr;
       for(int i = 0; i < _typeSize; ++i)
       {
-         ptr[i] = temp[i];
+         tempPtr[i] = temp[i];
       }
       return ptr;
    }
