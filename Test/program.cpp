@@ -23,7 +23,7 @@ int main(int argc, char** argv)
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   distributionAndRepDistribution<unsigned short>(100000);
+   distributionAndRepDistribution<unsigned int>(100000000);
    cout << "done" << endl;
    string str;
    cin >> str;
@@ -161,7 +161,7 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long milli
 
 template<class T> void distributionAndRepDistribution(long noOfSamples)
 {
-   long size = powl(256,sizeof(T));
+   long size = (long)powl(256,sizeof(T));
    Generator<T> gen(sod);
    vector<long> samples(size);
    vector<long> repSamples(size);
