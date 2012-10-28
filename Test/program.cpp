@@ -23,7 +23,7 @@ int main(int argc, char** argv)
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   distributionAndRepDistribution<unsigned int>(100000000);
+   distributionAndRepDistribution<unsigned char>(1000000000);
    cout << "done" << endl;
    string str;
    cin >> str;
