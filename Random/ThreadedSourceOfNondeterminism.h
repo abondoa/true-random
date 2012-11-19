@@ -20,6 +20,7 @@ namespace Random
 
          void _reset();
          void _insertCurrent();
+         bool _isEmpty();
 
       public:
          ThreadedSourceOfNondeterminism(int bufferSize = 256);
