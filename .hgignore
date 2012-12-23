@@ -1,0 +1,23 @@
+syntax: glob
+Random.sdf
+Random.sln
+Random/Debug/*
+*.vcxproj
+*.suo
+*.lib
+*.exe
+Debug/Test.ilk
+Debug/Test.pdb
+Random.opensdf
+*.aps
+*.rc
+*.vcxproj.*
+*.obj
+*.tlog
+*.lastbuildstate
+*.log
+*.pch
+*.pdb
+Test/distribution.csv
+Test/repitition distribution.csv
+*.ipch
