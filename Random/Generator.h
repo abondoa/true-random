@@ -11,16 +11,20 @@ template <class T> class Generator
 private:
    int _typeSize;
    SourceOfNondeterminism* _source;
+   T* _pointer;
 
 public:
    Generator(SourceOfNondeterminism* source)
    {
       _typeSize = sizeof(T);
       _source = source;
+      _pointer = new T();
    }
 
    ~Generator(void)
-   {}
+   {
+      delete _pointer;
+   }
 
    T* Generate(T* ptr)
    {
@@ -32,6 +36,12 @@ public:
          tempPtr[i] = temp[i];
       }
       return ptr;
+   }
+
+   T Generate()
+   {
+      Generate(_pointer);
+      return *_pointer;
    }
 };
 }

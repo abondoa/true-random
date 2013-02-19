@@ -1,18 +1,22 @@
 #include <iostream>
-#include "../Random/SourceOfNondeterminism.h"
-#include "../Random/SourceOfNondeterminismFactory.h"
-#include "../Random/Generator.h"
+#include "SourceOfNondeterminism.h"
+#include "SourceOfNondeterminismFactory.h"
+#include "Generator.h"
+#include "DistibutableGenerator.h"
 #include "CharPadder.h"
+#include "SquaredDistributor.h"
+#include "AverageDistributor.h"
 #include <cmath>
 #include <fstream>
 #include <boost/timer/timer.hpp>
 
 using namespace std;
 using namespace Random;
+
 template<class T> void repititionTest(int max);
 void distribution(long, bool toCsv = false);
 void repititionDistribution(long noOfSamples, bool toCsv);
-template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header);
+template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header, string unit = "samples");
 template<class T> void distributionAndRepDistribution(long noOfSamples);
 
 SourceOfNondeterminism* sod;
@@ -23,10 +27,9 @@ int main(int argc, char** argv)
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   distributionAndRepDistribution<unsigned char>(1000000000);
+   distributionAndRepDistribution<unsigned char>(100000);
    cout << "done" << endl;
-   string str;
-   cin >> str;
+   cin.get();
 
    return 0;
 }
@@ -136,7 +139,7 @@ void repititionDistribution(long noOfSamples, bool toCsv)
    }
 }
 
-template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header)
+template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header,string unit)
 {
       ofstream file;
       file.open(fileName);
@@ -148,11 +151,12 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long milli
 
       for(int i = 0 ; i < size ; ++i)
       {
-         file << CharPadder(width) << i << "," << samples[i] << endl;
+         file << CharPadder(width) << i << "," << samples[i] << "," << unit << endl;
          total += samples[i];
       }
-      file << "total," << total << endl;
-      file << "time," << millis << endl;
+      file << "total," << total << "," << unit << endl;
+      file << "time," << millis << ",ms" << endl;
+      file << "throughput," << total*1000/millis << "," << unit << "/s" << endl;
 
       file.close();
 }
@@ -162,7 +166,7 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long milli
 template<class T> void distributionAndRepDistribution(long noOfSamples)
 {
    long size = (long)powl(256,sizeof(T));
-   Generator<T> gen(sod);
+   DistibutableGenerator<T> gen(sod,new AverageDistributor(10));
    vector<long> samples(size);
    vector<long> repSamples(size);
    boost::timer::cpu_timer timer = boost::timer::cpu_timer();
@@ -172,20 +176,20 @@ template<class T> void distributionAndRepDistribution(long noOfSamples)
       repSamples[i] = 0;
    }
    
-   T *ptr = new T;
+   T temp;
    T last = size+1;
    timer.start();
    for(long i = 0 ; i < noOfSamples ; ++i)
    {
-      gen.Generate(ptr);
-      if(*ptr == last)
+      temp = gen.Generate();
+      if(temp == last)
       {
-         repSamples[*ptr]++;
+         repSamples[temp]++;
       }
-      samples[*ptr]++;
-      last = *ptr;
+      samples[temp]++;
+      last = temp;
    }
    timer.stop();
-   saveToFile("repitition distribution.csv",repSamples,timer.elapsed().wall /1000000,"Repitition Distribution");
-   saveToFile("distribution.csv",samples,timer.elapsed().wall /1000000,"Distribution");
+   saveToFile("repitition distribution.csv",repSamples,timer.elapsed().wall /1000000,"Repitition Distribution","repititions");
+   saveToFile("distribution.csv",samples,timer.elapsed().wall /1000000,"Distribution","occurences");
 }

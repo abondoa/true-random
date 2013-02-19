@@ -20,7 +20,6 @@ namespace Random
          _reset();
       }
 
-
       ThreadedSourceOfNondeterminism::~ThreadedSourceOfNondeterminism(void)
       {
          _bitGenerators->clear();
@@ -35,13 +34,11 @@ namespace Random
          for(int i = 0 ; i < size ; ++i)
          {
             _mutex->lock();
-            while(_buffer->empty())
+            while(_isEmpty())
             {
-               _insertCurrent();
                _mutex->unlock();
                boost::this_thread::yield();
                _mutex->lock();
-               _insertCurrent();
             }
             result.push_back(_buffer->front());
             _buffer->pop_front();
@@ -63,6 +60,12 @@ namespace Random
       {
          _currentInteger = NO_BITS_SET;
          _currentMask = NO_BITS_SET;
+      }
+
+      bool ThreadedSourceOfNondeterminism::_isEmpty()
+      {
+         _insertCurrent();
+         return _buffer->empty();
       }
 
       void ThreadedSourceOfNondeterminism::_insertCurrent()
