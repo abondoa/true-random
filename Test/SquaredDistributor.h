@@ -1,5 +1,5 @@
 #pragma once
-#include "../Random/Distributor.h"
+#include "Distributor.h"
 #include <vector>
 
 class SquaredDistributor :

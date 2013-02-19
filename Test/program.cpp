@@ -9,6 +9,8 @@
 #include <cmath>
 #include <fstream>
 #include <boost/timer/timer.hpp>
+#include <../Dieharder/Interface.h>
+
 
 using namespace std;
 using namespace Random;
@@ -16,18 +18,19 @@ using namespace Random;
 template<class T> void repititionTest(int max);
 void distribution(long, bool toCsv = false);
 void repititionDistribution(long noOfSamples, bool toCsv);
-template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header, string unit = "samples");
+template<class T> void saveToFile(string fileName, vector<T> samples, long long millis, string header, string unit = "samples");
 template<class T> void distributionAndRepDistribution(long noOfSamples);
 
 SourceOfNondeterminism* sod;
 int main(int argc, char** argv)
 {
-   sod = SourceOfNondeterminismFactory::GetInstance()->Create();
+   //sod = SourceOfNondeterminismFactory::GetInstance()->Create();
    //repititionTest<short>(20000000);
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   distributionAndRepDistribution<unsigned char>(100000);
+   //distributionAndRepDistribution<unsigned char>(100000);
+   test_some_stuff();
    cout << "done" << endl;
    cin.get();
 
@@ -139,7 +142,7 @@ void repititionDistribution(long noOfSamples, bool toCsv)
    }
 }
 
-template<class T> void saveToFile(string fileName, vector<T> samples, long millis, string header,string unit)
+template<class T> void saveToFile(string fileName, vector<T> samples, long long millis, string header,string unit)
 {
       ofstream file;
       file.open(fileName);

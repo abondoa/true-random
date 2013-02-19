@@ -44,4 +44,6 @@ public:
       return *_pointer;
    }
 };
+
+
 }
