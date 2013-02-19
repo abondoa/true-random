@@ -21,3 +21,7 @@ Random.opensdf
 Test/distribution.csv
 Test/repitition distribution.csv
 *.ipch
+*.res
+*.idb
+*.cache
+*.db

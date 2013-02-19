@@ -1,14 +1,18 @@
 #include <iostream>
-#include "../Random/SourceOfNondeterminism.h"
-#include "../Random/SourceOfNondeterminismFactory.h"
-#include "../Random/Generator.h"
+#include "SourceOfNondeterminism.h"
+#include "SourceOfNondeterminismFactory.h"
+#include "Generator.h"
+#include "DistibutableGenerator.h"
 #include "CharPadder.h"
+#include "SquaredDistributor.h"
+#include "AverageDistributor.h"
 #include <cmath>
 #include <fstream>
 #include <boost/timer/timer.hpp>
 
 using namespace std;
 using namespace Random;
+
 template<class T> void repititionTest(int max);
 void distribution(long, bool toCsv = false);
 void repititionDistribution(long noOfSamples, bool toCsv);
@@ -23,7 +27,7 @@ int main(int argc, char** argv)
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   distributionAndRepDistribution<unsigned char>(1000000);
+   distributionAndRepDistribution<unsigned char>(100000);
    cout << "done" << endl;
    cin.get();
 
@@ -162,7 +166,7 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long milli
 template<class T> void distributionAndRepDistribution(long noOfSamples)
 {
    long size = (long)powl(256,sizeof(T));
-   Generator<T> gen(sod);
+   DistibutableGenerator<T> gen(sod,new AverageDistributor(10));
    vector<long> samples(size);
    vector<long> repSamples(size);
    boost::timer::cpu_timer timer = boost::timer::cpu_timer();
@@ -172,18 +176,18 @@ template<class T> void distributionAndRepDistribution(long noOfSamples)
       repSamples[i] = 0;
    }
    
-   T *ptr = new T;
+   T temp;
    T last = size+1;
    timer.start();
    for(long i = 0 ; i < noOfSamples ; ++i)
    {
-      gen.Generate(ptr);
-      if(*ptr == last)
+      temp = gen.Generate();
+      if(temp == last)
       {
-         repSamples[*ptr]++;
+         repSamples[temp]++;
       }
-      samples[*ptr]++;
-      last = *ptr;
+      samples[temp]++;
+      last = temp;
    }
    timer.stop();
    saveToFile("repitition distribution.csv",repSamples,timer.elapsed().wall /1000000,"Repitition Distribution","repititions");
