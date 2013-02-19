@@ -146,7 +146,7 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long milli
       file << header << endl;
       
       int size = samples.size();
-      int width = (int)log10(size) + 1;
+      int width = (int)log10((double)size) + 1;
       long total = 0;
 
       for(int i = 0 ; i < size ; ++i)
