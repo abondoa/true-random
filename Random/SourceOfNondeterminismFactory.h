@@ -11,6 +11,7 @@ namespace Random
       ~SourceOfNondeterminismFactory(void);
 
       SourceOfNondeterminism* Create();
+
       static SourceOfNondeterminismFactory* GetInstance()
       {
          static SourceOfNondeterminismFactory instance;

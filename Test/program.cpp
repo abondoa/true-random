@@ -2,10 +2,12 @@
 #include "SourceOfNondeterminism.h"
 #include "SourceOfNondeterminismFactory.h"
 #include "Generator.h"
-#include "DistibutableGenerator.h"
+#include "DistributableGenerator.h"
+#include "RandomNumberGeneratorFactory.h"
 #include "CharPadder.h"
 #include "SquaredDistributor.h"
 #include "AverageDistributor.h"
+#include "NormalDistributor.h"
 #include <cmath>
 #include <fstream>
 #include <boost/timer/timer.hpp>
@@ -20,17 +22,19 @@ void distribution(long, bool toCsv = false);
 void repititionDistribution(long noOfSamples, bool toCsv);
 template<class T> void saveToFile(string fileName, vector<T> samples, long long millis, string header, string unit = "samples");
 template<class T> void distributionAndRepDistribution(long noOfSamples);
+template<class T> void distributionAndRepDistributionFloat(long noOfSamples,long granularity);
 
 SourceOfNondeterminism* sod;
 int main(int argc, char** argv)
 {
-   //sod = SourceOfNondeterminismFactory::GetInstance()->Create();
+   sod = SourceOfNondeterminismFactory::GetInstance()->Create();
    //repititionTest<short>(20000000);
    //repititionTest<char>(20000000);
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
-   //distributionAndRepDistribution<unsigned char>(100000);
-   test_some_stuff();
+   distributionAndRepDistribution<unsigned char>(100000);
+   //distributionAndRepDistributionFloat<long double>(100000,50);
+   //test_some_stuff();
    cout << "done" << endl;
    cin.get();
 
@@ -164,12 +168,15 @@ template<class T> void saveToFile(string fileName, vector<T> samples, long long 
       file.close();
 }
 
-
+char log(char c)
+{
+	return (char)(int)log((double) c);
+}
 
 template<class T> void distributionAndRepDistribution(long noOfSamples)
 {
    long size = (long)powl(256,sizeof(T));
-   DistibutableGenerator<T> gen(sod,new AverageDistributor(10));
+   Generator<T> &gen = *__RandomNumberGeneratorFactory::GetInstance()->GetGenerator<T>(new AverageDistributor(4));
    vector<long> samples(size);
    vector<long> repSamples(size);
    boost::timer::cpu_timer timer = boost::timer::cpu_timer();
@@ -190,6 +197,37 @@ template<class T> void distributionAndRepDistribution(long noOfSamples)
          repSamples[temp]++;
       }
       samples[temp]++;
+      last = temp;
+   }
+   timer.stop();
+   saveToFile("repitition distribution.csv",repSamples,timer.elapsed().wall /1000000,"Repitition Distribution","repititions");
+   saveToFile("distribution.csv",samples,timer.elapsed().wall /1000000,"Distribution","occurences");
+}
+
+template<class T> void distributionAndRepDistributionFloat(long noOfSamples,long granularity)
+{
+   long size = granularity+1;
+   DistributableGenerator<T> gen(sod,new NormalDistributor());
+   vector<long> samples(size);
+   vector<long> repSamples(size);
+   boost::timer::cpu_timer timer = boost::timer::cpu_timer();
+   for(int i = 0 ; i < size ; ++i)
+   {
+      samples[i] = 0;
+      repSamples[i] = 0;
+   }
+   
+   T temp;
+   T last = size+1;
+   timer.start();
+   for(long i = 0 ; i < noOfSamples ; ++i)
+   {
+      temp = gen.Generate();
+      if(temp == last)
+      {
+         repSamples[temp*granularity]++;
+      }
+      samples[temp*granularity]++;
       last = temp;
    }
    timer.stop();

@@ -4,16 +4,16 @@
 using namespace std;
 class CharPadder
 {
-    int myWidth;
-    char fill;
+    int _width;
+    char _fill;
 public:
-    CharPadder( int width, char fill = '0' ) : myWidth( width ), fill(fill) {}
+    CharPadder( int width, char fill = '0' ) : _width( width ), _fill(fill) {}
 
     friend std::ostream& operator<<(
         std::ostream& stream, CharPadder const& manip )
     {
-        stream.fill( manip.fill );
-        stream.width( manip.myWidth );
+        stream.fill( manip._fill );
+        stream.width( manip._width );
         return stream;
     }
 };
