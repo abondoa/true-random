@@ -25,3 +25,5 @@ Test/repitition distribution.csv
 *.idb
 *.cache
 *.db
+*.Plo
+*.Po

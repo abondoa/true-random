@@ -99,7 +99,7 @@ TYPE *rp;
 TYPE rndint;
 unsigned char sindex, svec[255 + WORD];  /* 256 overlapping TYPE seeds */
 
-static inline unsigned long int
+static __inline unsigned long int
 uvag_get (void *vstate)
 {
 

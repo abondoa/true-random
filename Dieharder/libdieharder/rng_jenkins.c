@@ -15,7 +15,7 @@
 #include <string.h>
 
 int
-main(int argc,
+main_Sdf(int argc,
      char* argv[])
 {
     int rv = 0;

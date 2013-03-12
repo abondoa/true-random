@@ -28,7 +28,7 @@
 /*
  * Include inline uint generator
  */
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 
 int diehard_rank_6x8(Test **test, int irun)
 {

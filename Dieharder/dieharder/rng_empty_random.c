@@ -11,6 +11,7 @@ static void dev_random_set (void *vstate, unsigned long int s);
 
 typedef struct
   {
+     char derp;
   }
 dev_random_state_t;
 

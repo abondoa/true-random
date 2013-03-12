@@ -74,7 +74,7 @@ unsigned int rule[RULESIZE] = {
    142,119,73,103,166,33,148,9,111,136,168,150,82
 };
 
-static inline unsigned long int
+static __inline unsigned long int
 ca_get (void *vstate)
 {
   /* Returns a 32-bit unsigned integer produced by the automaton */

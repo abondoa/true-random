@@ -32,7 +32,7 @@
   * bet (and still safe from a buffer overwrite point of view)
   */
 #define TLENGTH 16
- static char *table_fields[] __attribute__((unused)) = {
+ static char *table_fields[] = {
  "default",
  "header",
  "show_rng",

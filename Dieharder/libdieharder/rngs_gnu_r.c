@@ -382,9 +382,13 @@ r_rng_get (void *vstate)
 static double
 r_rng_get_double (void *vstate)
     {
+  double 
+     u;
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
   RNG_kind = (*state).kind;
-  double u = unif_rand();
+  u
+     =
+     unif_rand();
   return(u);
     }
 
@@ -393,9 +397,11 @@ static void
 r_wichmann_hill_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[WICHMANN_HILL];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
     RNG_Init(kind, seed);
   return;
 }
@@ -416,9 +422,11 @@ static void
 r_marsaglia_mc_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[MARSAGLIA_MULTICARRY];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
   RNG_Init(kind, seed);
   return;
 }
@@ -439,9 +447,11 @@ static void
 r_super_duper_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[SUPER_DUPER];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
   RNG_Init(kind, seed);
   return;
 }
@@ -462,9 +472,11 @@ static void
 r_mersenne_twister_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[MERSENNE_TWISTER];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
   RNG_Init(kind, seed);
   return;
 }
@@ -485,9 +497,11 @@ static void
 r_knuth_taocp_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[KNUTH_TAOCP];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
   RNG_Init(kind, seed);
   return;
 }
@@ -515,9 +529,11 @@ static void
 r_knuth_taocp2_set (void *vstate, unsigned long int s)
 {
   r_rng_tab_t *state = (r_rng_tab_t *) vstate;
+  RNGtype kind;
+  Int32 seed;
   *state = RNG_Table[KNUTH_TAOCP2];
-  RNGtype kind = (*state).kind;  
-  Int32 seed = s;  /* FIXME: casting down from long seed to unsigned int */
+  kind = (*state).kind;  
+  seed = s;  /* FIXME: casting down from long seed to unsigned int */
   RNG_Init(kind, seed);
   return;
 }

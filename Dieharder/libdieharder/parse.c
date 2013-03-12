@@ -26,6 +26,7 @@ int split(char *inbuffer)
 { 
 
  char delim[7],*nextval;
+ int i;
 
  if(verbose){
    printf("split(%s)\n",inbuffer);
@@ -47,7 +48,7 @@ int split(char *inbuffer)
  
  nextval = strtok(inbuffer,delim);
  if(nextval == (char *)NULL) return 0;
- int i = 0;
+ i = 0;
  strncpy(splitbuf[i],nextval,PBUF);
  if(verbose){
    printf("split(): split field[%d] = %s.\n",i,splitbuf[i]);

@@ -58,6 +58,10 @@ int rgb_operm(Test **test,int irun)
  uint size;
  double pvalue,ntuple_prob,pbin;  /* probabilities */
  Vtest *vtest;   /* Chisq entry vector */
+ gsl_permutation * p;
+ gsl_vector *eval;
+ gsl_matrix *evec;
+ gsl_eigen_symmv_workspace* w;
 
  gsl_matrix_view CEXACT,CEINV,CEXPT,IDTY;
 
@@ -82,7 +86,7 @@ int rgb_operm(Test **test,int irun)
  nperms = gsl_sf_fact(rgb_operm_k);
  noperms = gsl_sf_fact(3*rgb_operm_k-2);
  csamples = rgb_operm_k*rgb_operm_k;
- gsl_permutation * p = gsl_permutation_alloc(nperms);
+ p = gsl_permutation_alloc(nperms);
 
  /*
   * Allocate memory for value_max vector of Vtest structs and counts,
@@ -145,15 +149,15 @@ int rgb_operm(Test **test,int irun)
   * Here is the gsl ritual for evaluating eigenvalues etc.
   */
 
- gsl_vector *eval = gsl_vector_alloc (nperms);
- gsl_matrix *evec = gsl_matrix_alloc (nperms,nperms);
+ eval = gsl_vector_alloc (nperms);
+ evec = gsl_matrix_alloc (nperms,nperms);
  /*
  gsl_eigen_nonsymm_workspace* w =  gsl_eigen_nonsymmv_alloc(nperms);
  gsl_eigen_nonsymm_params (1,0,w);
  gsl_eigen_nonsymmv(&CEXACT.matrix, eval, evec, w);
  gsl_eigen_nonsymmv_free (w);
  */
- gsl_eigen_symmv_workspace* w =  gsl_eigen_symmv_alloc(nperms);
+ w =  gsl_eigen_symmv_alloc(nperms);
  gsl_eigen_symmv(&CEXACT.matrix, eval, evec, w);
  gsl_eigen_symmv_free (w);
  gsl_eigen_symmv_sort (eval, evec, GSL_EIGEN_SORT_ABS_ASC);

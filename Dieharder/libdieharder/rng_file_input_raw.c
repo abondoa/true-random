@@ -138,7 +138,8 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
     * Is this a regular file?  If so, turn its byte length into a 32 bit uint
     * length.
     */
-   if(S_ISREG(sbuf.st_mode)){
+   if(1//S_ISREG(sbuf.st_mode)
+      ){
      /*
       * sbuf.st_size should be type off_t, which is automatically u_int64_t
       * if FILE_OFFSET_BITS is set to 64, which it is.  So this should be
@@ -152,7 +153,8 @@ static void file_input_raw_set (void *vstate, unsigned long int s)
        fprintf(stderr,"# file_input_raw(): Error -- file %s is too small.\n",filename);
        exit(0);
      }
-   } else if (S_ISDIR(sbuf.st_mode)){
+   } else if (1 //S_ISDIR(sbuf.st_mode)
+      ){
      fprintf(stderr,"# file_input_raw(): Error -- path %s is a directory.\n",filename);
      exit(0);
    } else {
