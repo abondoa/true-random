@@ -176,7 +176,7 @@ char log(char c)
 template<class T> void distributionAndRepDistribution(long noOfSamples)
 {
    long size = (long)powl(256,sizeof(T));
-   Generator<T> &gen = *__RandomNumberGeneratorFactory::GetInstance()->GetGenerator<T>(new AverageDistributor(4));
+   Generator<T> &gen = *RandomNumberGeneratorFactory::GetInstance()->GetGenerator<T>(new AverageDistributor(4));
    vector<long> samples(size);
    vector<long> repSamples(size);
    boost::timer::cpu_timer timer = boost::timer::cpu_timer();

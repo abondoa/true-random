@@ -6,12 +6,12 @@
 namespace Random
 {
 
-	__RandomNumberGeneratorFactory::__RandomNumberGeneratorFactory(void)
+	RandomNumberGeneratorFactory::RandomNumberGeneratorFactory(void)
 	{
 		_source = SourceOfNondeterminismFactory::GetInstance()->Create();
 	}
 
-	__RandomNumberGeneratorFactory::~__RandomNumberGeneratorFactory(void)
+	RandomNumberGeneratorFactory::~RandomNumberGeneratorFactory(void)
 	{
 		delete _source;
 	}

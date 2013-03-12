@@ -6,13 +6,13 @@
 
 namespace Random
 {
-	class __RandomNumberGeneratorFactory
+	class RandomNumberGeneratorFactory
 	{
-		__RandomNumberGeneratorFactory(void);
+		RandomNumberGeneratorFactory(void);
 		SourceOfNondeterminism *_source;
 
 	public:
-		~__RandomNumberGeneratorFactory(void);
+		~RandomNumberGeneratorFactory(void);
 
 		template<class T> Generator<T> *GetGenerator()
 		{
@@ -24,9 +24,9 @@ namespace Random
 			return new DistributableGenerator<T>(_source, dist);
 		}
 		
-		static __RandomNumberGeneratorFactory* GetInstance()
+		static RandomNumberGeneratorFactory* GetInstance()
 		{
-			static __RandomNumberGeneratorFactory instance;
+			static RandomNumberGeneratorFactory instance;
 			return &instance;
 		}
 	};
