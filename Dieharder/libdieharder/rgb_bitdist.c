@@ -58,7 +58,7 @@
 
 #include <dieharder/libdieharder.h>
 
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 
 int rgb_bitdist(Test **test,int irun)
 {

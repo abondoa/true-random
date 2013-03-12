@@ -74,7 +74,7 @@
 
 #include <dieharder/libdieharder.h>
 
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 
 /*
  * This is a buffer of uint length (2^nb)+1 that we will fill with rands

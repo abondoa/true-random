@@ -36,7 +36,7 @@
 
 
 #include <dieharder/libdieharder.h>
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 static uint mask;
 
 int diehard_dna(Test **test, int irun)

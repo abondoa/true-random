@@ -11,7 +11,7 @@
 #include <cmath>
 #include <fstream>
 #include <boost/timer/timer.hpp>
-#include <../Dieharder/Interface.h>
+//#include <../Dieharder/Interface.h>
 
 
 using namespace std;
@@ -33,7 +33,7 @@ int main(int argc, char** argv)
    //distribution(2000000000,true);
    //repititionDistribution(20000,true);
    distributionAndRepDistribution<unsigned char>(100000);
-   //distributionAndRepDistributionFloat<long double>(100000,50);
+   //test_some_stuff();
    //test_some_stuff();
    cout << "done" << endl;
    cin.get();

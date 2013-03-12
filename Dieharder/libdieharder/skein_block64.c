@@ -68,7 +68,7 @@ void Threefish_512_Process_Blocks64(Threefish_512_Ctxt_t *ctx, const u08b_t *inp
     Xptr[0] = &X0;  Xptr[1] = &X1;  Xptr[2] = &X2;  Xptr[3] = &X3;
     Xptr[4] = &X4;  Xptr[5] = &X5;  Xptr[6] = &X6;  Xptr[7] = &X7;
 #endif
-
+    unsigned long long int output_tmp;
     Skein_assert(blkCnt != 0);                  /* never call with blkCnt == 0! */
 	ts[0] = ctx->T[0];
 	ts[1] = ctx->T[1];
@@ -223,7 +223,7 @@ void Threefish_512_Process_Blocks64(Threefish_512_Ctxt_t *ctx, const u08b_t *inp
 		 * line did, without the warning.
 		 */
 		/* output += SKEIN_512_BLOCK_BYTES; */
-		unsigned long long int output_tmp = (unsigned long long int) output;
+		output_tmp = (unsigned long long int) output;
 		output_tmp += SKEIN_512_BLOCK_BYTES;
 		output = (void *) output_tmp;
         } while (--blkCnt);
@@ -241,3 +241,26 @@ uint_t Skein_512_Unroll_Cnt(void)
     }
 #endif
 #endif
+void    Skein_Put64_LSB_First(u08b_t *dst,const u64b_t *src,size_t bCnt)
+    { /* this version is fully portable (big-endian or little-endian), but slow */
+    size_t n;
+
+    for (n=0;n<bCnt;n++)
+        dst[n] = (u08b_t) (src[n>>3] >> (8*(n&7)));
+    }
+
+
+void    Skein_Get64_LSB_First(u64b_t *dst,const u08b_t *src,size_t wCnt)
+    { /* this version is fully portable (big-endian or little-endian), but slow */
+    size_t n;
+
+    for (n=0;n<8*wCnt;n+=8)
+        dst[n/8] = (((u64b_t) src[n  ])      ) +
+                   (((u64b_t) src[n+1]) <<  8) +
+                   (((u64b_t) src[n+2]) << 16) +
+                   (((u64b_t) src[n+3]) << 24) +
+                   (((u64b_t) src[n+4]) << 32) +
+                   (((u64b_t) src[n+5]) << 40) +
+                   (((u64b_t) src[n+6]) << 48) +
+                   (((u64b_t) src[n+7]) << 56) ;
+    }

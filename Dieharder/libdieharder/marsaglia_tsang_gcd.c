@@ -33,7 +33,7 @@
 /*
  * Include inline uint generator
  */
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 
 /*
  * This determines the number of samples that go into building the kprob[]

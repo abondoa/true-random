@@ -24,7 +24,7 @@
  * caller (and guaranteed to be big enough to hold the result).
  */
 
-inline uint get_rand_bits_uint (uint nbits, uint mask, gsl_rng *rng)
+__inline uint get_rand_bits_uint (uint nbits, uint mask, gsl_rng *rng)
 {
 
  static uint bit_buffer;
@@ -203,7 +203,7 @@ and so on.  Very nice.
  * require work if/when rngs that generate 64-bit rands come along.
  * But then, so will other programs.
  */
-inline uint get_bit_ntuple_from_uint (uint bitstr, uint nbits, 
+__inline uint get_bit_ntuple_from_uint (uint bitstr, uint nbits, 
                                       uint mask, uint boffset)
 {
    uint result;
@@ -237,7 +237,7 @@ inline uint get_bit_ntuple_from_uint (uint bitstr, uint nbits,
  * call routines up to return uints.  It's faster, too -- less checking
  * of the stream, fewer conditionals.
  */
-inline uint get_bit_ntuple_from_whole_uint (uint bitstr, uint nbits, 
+__inline uint get_bit_ntuple_from_whole_uint (uint bitstr, uint nbits, 
 		uint mask, uint boffset)
 {
  uint result;

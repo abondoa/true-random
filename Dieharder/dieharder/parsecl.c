@@ -6,7 +6,7 @@
  */
 
 #include "dieharder.h"
-#include <getopt.h>
+#include <Xgetopt.h>
 /*
  * parsecl parses the command line for the dieharder CLI to:
  *
@@ -89,7 +89,7 @@ void parsecl(int argc, char **argv)
 	     if(i == 0){
 	       tflag = tflag_default;
 	     } else {
-               tflag_tmp = (int) pow(2,i-1);
+               tflag_tmp = (int) pow((double)2,i-1);
 	     }
 	     break;
 	   }
@@ -308,7 +308,7 @@ void parsecl(int argc, char **argv)
      fprintf(stdout,"=======================\n");
      fprintf(stdout,"%5d\t%15s\n",0,table_fields[0]);
      for(i=0;i<TCNT;i++){
-       fprintf(stdout,"%5d\t%15s\n",(int)pow(2,i),table_fields[i+1]);
+       fprintf(stdout,"%5d\t%15s\n",(int)pow((double)2,i),table_fields[i+1]);
      }
      Exit(0);
    }

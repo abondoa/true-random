@@ -4,7 +4,6 @@
  * See copyright in copyright.h and the accompanying file COPYING
  *========================================================================
  */
-
 #include "copyright.h"
 
 /* To enable large file support */
@@ -16,6 +15,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <time.h>
+#include <windows.h>
 #include <winsock.h>
 
 /* This turns on uint macro in c99 */
@@ -302,3 +302,5 @@ typedef struct {
   double c[RGB_MINIMUM_DISTANCE_MAXDIM];
 } dTuple;
  
+int gettimeofday(struct timeval *tv/*in*/, struct timezone *tz/*in*/);
+double fmax(double a, double b);

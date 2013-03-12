@@ -78,7 +78,7 @@
 /*
  * Include inline uint generator
  */
-#include "static_get_bits.cpp"
+#include "static_get_bits.c"
 
 /*
  * This table was generated using the following code fragment.

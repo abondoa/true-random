@@ -29,7 +29,7 @@ typedef struct {
   unsigned int XOR_rnd;
 } XOR_state_t;
 
-static inline unsigned long int
+static __inline unsigned long int
 XOR_get (void *vstate)
 {
  XOR_state_t *state = (XOR_state_t *) vstate;
