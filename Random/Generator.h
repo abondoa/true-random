@@ -1,12 +1,14 @@
 #pragma once
 #include "SourceOfNondeterminism.h"
+#include "RandomNumberGenerator.h"
 #include <cstring>
 
 using namespace std;
 
 namespace Random
 {
-template <class T> class Generator
+template <class T> class Generator :
+	public RandomNumberGenerator<T>
 {
 private:
    int _typeSize;
@@ -26,9 +28,8 @@ public:
       delete _pointer;
    }
 
-   T* Generate(T* ptr)
+   virtual T* Generate(T* ptr)
    {
-      //char* temp = new char[_typeSize];
       vector<char> temp = _source->GetBytes(_typeSize);
       char *tempPtr = (char*)ptr;
       for(int i = 0; i < _typeSize; ++i)
@@ -38,7 +39,7 @@ public:
       return ptr;
    }
 
-   T Generate()
+   virtual T Generate()
    {
       Generate(_pointer);
       return *_pointer;
