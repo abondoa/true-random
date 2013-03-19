@@ -1,7 +1,8 @@
 #pragma once
-#include "Generator.h"
+#include "RandomNumberGenerator.h"
 #include "SourceOfNondeterminism.h"
 #include "Distributor.h"
+#include "RangeDistributor.h"
 #include "DistributableGenerator.h"
 
 namespace Random
@@ -14,14 +15,18 @@ namespace Random
 	public:
 		~RandomNumberGeneratorFactory(void);
 
-		template<class T> Generator<T> *GetGenerator()
+		template<class T> RandomNumberGenerator<T> *GetGenerator()
 		{
 			return new Generator<T>(_source);
 		}
 
-		template<class T> Generator<T> *GetGenerator(Distributor<T> *dist)
+		template<class T, class S> RandomNumberGenerator<S> *GetGenerator(Distributor<T,S> *dist)
 		{
-			return new DistributableGenerator<T>(_source, dist);
+			if(dist == 0)
+			{
+				return GetGenerator<S>();
+			}
+			return new DistributableGenerator<T,S>(_source, dist);
 		}
 		
 		static RandomNumberGeneratorFactory* GetInstance()

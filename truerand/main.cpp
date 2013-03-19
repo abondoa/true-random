@@ -10,7 +10,7 @@ using namespace std;
 using namespace Random;
 namespace po = boost::program_options;
 
-template <class T> void generate();
+template <class T, class S> void generate(Distributor<T,S>* dist = 0);
 long long samples;
 long long seed;
 bool binary = false;
@@ -23,7 +23,8 @@ int main(int argc, char** argv)
 	desc.add_options()
 		("help,h", "Produce help message")
 		("bytes,b", po::value<int>(&bytes)->default_value(4), "Set number of bytes pr generation: 1, 2, 4, 8")
-      ("seed,S", po::value<long long>(&seed)->default_value(time(NULL)), "seed")
+		("float,f","Generate floating point numbers in range [0..1)")
+		("seed,S", po::value<long long>(&seed)->default_value(time(NULL)), "seed")
 		("samples,t", po::value<long long>(&samples)->default_value(-1), "Number of samples to generate (-1 to keep generating)")
 		("dieharder,d", "Use dieharder format")
       ("binary,B", "Print binary")
@@ -48,19 +49,32 @@ int main(int argc, char** argv)
            << "count: " << samples << endl
            << "numbit: "<< bytes*8 << endl;
 	}
+	
 	switch(bytes)
 	{
 	case 1:
-		generate<unsigned char>();
+		generate<unsigned char,unsigned char>();
 		break;
 	case 2:
-		generate<unsigned short>();
+		generate<unsigned short, unsigned short>();
 		break;
 	case 4:
-		generate<unsigned int>();
+		if (vm.count("float") || true) {
+			generate(new RangeDistributor<unsigned int,float>(std::numeric_limits<unsigned int>::max(),0,0));
+		}
+		else
+		{
+			generate<unsigned int, unsigned int>();
+		}
 		break;
 	case 8:
-		generate<unsigned long long>();
+		if (vm.count("float")) {
+			generate(new RangeDistributor<unsigned long long,double>(std::numeric_limits<unsigned long long>::max(),0,0));
+		}
+		else
+		{
+			generate<unsigned long long, unsigned long long>();
+		}
 		break;
 	default:
 		cout << desc << "\n";
@@ -71,9 +85,9 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-template <class T> void generate()
+template <class T, class S> void generate(Distributor<T,S>* dist)
 {
-	Generator<T>* gen = RandomNumberGeneratorFactory::GetInstance()->GetGenerator<T>();
+	RandomNumberGenerator<S>* gen = RandomNumberGeneratorFactory::GetInstance()->GetGenerator(dist);
 
    if(binary)
    {
@@ -100,17 +114,19 @@ template <class T> void generate()
       {
 	      for ever
 	      {
-		      cout << (unsigned long long)gen->Generate() << endl;
+		cout << gen->Generate() << endl;
 	      }
       }
       else
       {
          for(long long i = 0 ; i < samples ; i++)
          {
-		      cout << (unsigned long long)gen->Generate() << endl;
+		      cout << gen->Generate() << endl;
          }
       }
    }
 
 	delete gen;
+	if(dist != 0)
+		delete dist;
 }

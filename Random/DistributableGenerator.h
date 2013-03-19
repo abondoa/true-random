@@ -5,21 +5,23 @@
 
 namespace Random
 {
-   template<class T> class DistributableGenerator :
-      public Generator<T>
+	template<class T, class S = T> class DistributableGenerator :
+			public RandomNumberGenerator<S>
    {
    private:
-      Distributor<T>* _distributor;
+      Distributor<T,S>* _distributor;
+	  Generator<T> _generator;
 
    public:
-      DistributableGenerator(SourceOfNondeterminism* sod, Distributor<T>* distributer) : Generator(sod)
+      DistributableGenerator(SourceOfNondeterminism* sod, Distributor<T,S>* distributer) : 
+		 _generator(sod)
       {
          _distributor = distributer;
       }
 
       ~DistributableGenerator(void) {}
 
-      T Generate()
+      S Generate()
       {
 		 while(true)
 		 {
@@ -30,7 +32,7 @@ namespace Random
 
 			   for(long i = 0; i < size; ++i)
 			   {
-				  randVector[i] = Generator<T>::Generate();
+				  randVector[i] = _generator.Generate();
 			   }
 			   return _distributor->Distribute(randVector);
 			}
