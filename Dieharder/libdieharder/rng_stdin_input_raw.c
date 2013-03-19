@@ -15,6 +15,7 @@ static unsigned long int
 stdin_input_raw_get (void *vstate)
 {
   unsigned int j;
+ freopen(NULL, "rb", stdin);
   if (fread(&j,sizeof(j),1,stdin) != 1) {
       if (feof(stdin)) {
           fprintf(stderr,"# stdin_input_raw(): Error: EOF\n");
