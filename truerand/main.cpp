@@ -49,7 +49,6 @@ int main(int argc, char** argv)
            << "count: " << samples << endl
            << "numbit: "<< bytes*8 << endl;
 	}
-	
 	switch(bytes)
 	{
 	case 1:
@@ -59,8 +58,8 @@ int main(int argc, char** argv)
 		generate<unsigned short, unsigned short>();
 		break;
 	case 4:
-		if (vm.count("float") || true) {
-			generate(new RangeDistributor<unsigned int,float>(std::numeric_limits<unsigned int>::max(),0,0));
+		if (vm.count("float")) {
+			generate(&RangeDistributor<unsigned int,float>(std::numeric_limits<unsigned int>::max(),0,0));
 		}
 		else
 		{
@@ -69,7 +68,7 @@ int main(int argc, char** argv)
 		break;
 	case 8:
 		if (vm.count("float")) {
-			generate(new RangeDistributor<unsigned long long,double>(std::numeric_limits<unsigned long long>::max(),0,0));
+			generate(&RangeDistributor<unsigned long long,double>(std::numeric_limits<unsigned long long>::max(),0,0));
 		}
 		else
 		{
@@ -114,7 +113,7 @@ template <class T, class S> void generate(Distributor<T,S>* dist)
       {
 	      for ever
 	      {
-		cout << gen->Generate() << endl;
+		      cout << gen->Generate() << endl;
 	      }
       }
       else
@@ -127,6 +126,4 @@ template <class T, class S> void generate(Distributor<T,S>* dist)
    }
 
 	delete gen;
-	if(dist != 0)
-		delete dist;
 }
