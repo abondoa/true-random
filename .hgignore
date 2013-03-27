@@ -27,3 +27,5 @@ Test/repitition distribution.csv
 *.db
 *.Plo
 *.Po
+CMakeFiles/2.8.10.2/*
+CMakeFiles
