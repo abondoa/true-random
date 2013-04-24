@@ -37,6 +37,9 @@
  */
 
 #include <dieharder/libdieharder.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
 FILE *test_fp;
 
 void dieharder_rng_types()
@@ -79,6 +82,7 @@ void dieharder_rng_types()
   * and to expose users to some new/interesting rngs.
   */
  i = 200;
+  
  dh_num_dieharder_rngs = 0; 
  ADD(gsl_rng_stdin_input_raw);
  dh_num_dieharder_rngs++;
@@ -103,6 +107,7 @@ void dieharder_rng_types()
  MYDEBUG(D_TYPES){
    printf("# startup:  Found %u dieharder rngs.\n",dh_num_dieharder_rngs);
  }
+
 
 
  /*
