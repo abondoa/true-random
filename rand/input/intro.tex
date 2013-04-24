@@ -1,0 +1,33 @@
+\section{Introduction}
+\label{sec:intro}
+Random numbers are generated for several different purposes.
+Games, gambling, art, cryptography, and Monte Carlo methods to name a few~\citep{Stojanovski01chaos-basedrandom}.
+These areas have different requirements for their random number generator and indeed each application has its own specific set of requirements for its generator.
+Pseudo-random number generators (PRNGs) rely on a sequence of ``seemingly'' random numbers initialized by a seed.
+This sequence will repeat itself after a given \emph{period}, albeit this is often large -- the Mersenne Twister was implemented in 1998 with a period of $2^{19937}-1$~\citep{Matsumoto98}.
+These are usually very fast, but are not truly random and therefore not applicable for security oriented applications, such as cryptography.
+
+An alternative is to use physical conditions as a source of entropy in order to make a tru random number generator (RNG).
+Solutions in this direction include usage of photoevents~\citep{Martino91}, generation (and reading) of random noise~\citep{Holman97}, and reading atmospheric noise~\citep{random.org}.
+These methods for obtaining true random numbers require extra hardware to function.
+Furthermore, an attacker might be able to place a sensor near the one used by the RNG and thus have higher probability of guessing the generated numbers.
+This is, however, only speculation.
+Web-services, such as www.random.org~\citep{random.org}, has the required hardware to generate true random numbers which are accessible through their service.
+This, of course, requires a connection to the web-service and trust in its authenticity.
+
+Another alternative is to use events internal in the hardware connected the computer where the random numbers are to be generated.
+The Linux device \texttt{/dev/random}~\citep{devrandom} uses keyboard, mouse, and network events to generate highly unpredictable, and thus random, numbers.
+To accomplish this external devices must be connected to the computer, albeit very common external devices.
+
+The approach that I am taking to generate random numbers requires no external devices, no network connectivity, and produces random numbers of cryptographic quality.
+This approach utilizes different physical cores in the processor to generator numbers which for practical purposes are random.
+Such an approach is, to the best of my knowledge, novel.
+Parallel computing has been used in random number generators, but primarily for speedup~\citep{parallelRand}, not to increase the unpredictability.
+I call my approach \emph{Parallel Memory Writer} (PMW).
+
+In \secref{sec:method} the details of how the random numbers are generated is presented.
+\secref{sec:result} shows the result from performance tests of PMW.
+The results are discussed and evaluated in \secref{sec:discussion}.
+Finally a conclusion is drawn in \secref{sec:conclusion} together with future research directions.
+
+%Something about randomness is in the eye of the beholder, but we choose to test through dieharder or what ever
