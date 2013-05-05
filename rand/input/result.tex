@@ -1,15 +1,15 @@
-\section{Result}
+\section{Results}
 \label{sec:result}
 To test the performance of RMW between 1 to 10,000,000 bytes are generated in different test cases.
 PMW is implemented in C++ and uses the standard library of C++ along with Boost C++ Libraries~\citep{boost}.
 The test cases are run on an Intel Core i7 2.93 GHz with 8 GB RAM operated by Windows 7 64 bit SP 1.
 
 The results of the performance tests are shown in Table~\ref{tab:tests}
-For comparison the standard library random number generator in C has a throughput of $\approx 7500$ samples/ms and \texttt{/dev/random} has a throughput $<0.001$ sample/ms $=1$ sample/s.
-Note that \texttt{/dev/random} is run on another computer running Ubuntu OS, with an initially empty pool of entropy.
+For comparison the standard library random number generator in C has a throughput of $\approx 7500$ samples/ms and \devrandom{} has a throughput $<0.001$ sample/ms $=1$ sample/s.
+Note that \devrandom{} is run on another computer running Ubuntu OS, with an initially empty pool of entropy.
 This computer is a server and hence has no directly connected keyboard or mouse.
 
-\begin{table}
+\begin{figure}[hbt]
 	\centering
 		\begin{tabular}{|l|l|l|}
 			\hline
@@ -34,12 +34,14 @@ This computer is a server and hence has no directly connected keyboard or mouse.
 		\end{tabular}
 	\caption{Results from performance tests}
 	\label{tab:tests}
-\end{table}
+\end{figure}
 
 In combination with the performance tests the generated numbers are logged and a distribution can be seen in Figure~\ref{fig:distribution}.
 The bytes are represented by their decimal values.
+The figure shows the number of occurrences of each byte value (0-255 in decimal).
+A mean line is shown in red.
 
-\begin{figure}
+\begin{figure}[hbt]
 	\centering
 		\includegraphics[width=\columnwidth]{image/distribution.png}
 	\caption{Distribution of $10^7$ random bytes.}

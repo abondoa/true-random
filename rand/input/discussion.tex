@@ -8,8 +8,10 @@ The reason is unknown, but fluctuations in workload of the test computer is a po
 As shown the PMW is very slow compared to a standard library implementation of a PNRG.
 This is the trade-off that must be considered when deciding between an actual RNG and a PRNG.
 On the other hand it is very fast compared to other true RNGs.
-\texttt{/dev/random} can take up to several minutes just to generate a few hundred bytes if the pool of entropy is empty.
-This means that PMW has a throughput several orders of magnitude higher that \texttt{/dev/random}.
+\devrandom{} can take up to several minutes just to generate a few hundred bytes if the pool of entropy is empty.
+This means that PMW has a throughput several orders of magnitude higher that \devrandom{}.
+It should be kept in mind that \devrandom{} and PMW are run on different hardware, with slower CPU and less memory.
+This, however, should not affect \devrandom{}, since the bottleneck is neither computation time nor memory, but rather sources of entropy.
 
 The distribution of random bytes in Figure~\ref{fig:distribution} shows that no byte seem to appear much more often than any other.
 This means that PMW exhibit equi-distribution, which is generally a desirable property of an RNG since other distributions (such as normal) can be constructed based on it.

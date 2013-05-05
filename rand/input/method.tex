@@ -6,7 +6,7 @@ When this bit in memory, $Mem_0$, is read at a some point in time, it is not pos
 
 \begin{figure}
 	\centering
-		\includegraphics{image/TrueRand.pdf}
+		\includegraphics[width=0.5\columnwidth]{image/TrueRand.pdf}
 	\caption{Two threads of execution writing to the same bit of memory.}
 	\label{fig:TrueRand}
 \end{figure}
@@ -17,18 +17,22 @@ Secondly we add a bitmap which indicates whether or not a bit has been touched.
 A bit is \emph{touched} when one of the two threads writing to it has actually written something to it.
 E.g. $Bitmap_0=0$ until either $T_0$ or $T_1$ has written to $Mem_0$.
 When a user of the generator requests a random number, he cannot be served until all the bits in $Mem$ has been touched, i.e. $Bitmap$ contain only 1's.
-This technicality is added to ensure that the generator will work even when the random memory block to be generated contains more than half as many bits as there are cores in the processor -- each bit in $Mem$ requires two threads.
-If a user is very eager to get many random numbers two requests might be received before some pair of $T$s have had their chance to write to their associated $Mem$.
+This technicality ensures that binary structure of each generated number has no association to the previously generated number.
+%This technicality ensures that the generator will work even when the random memory block to be generated contains more than half as many bits as there are cores in the processor -- each bit in $Mem$ requires two threads.
+If a user is very eager to get many random numbers, two requests might be received before some pair of $T$s have had their chance to write to their associated $Mem_i$ and thus generating a number with the same value in the $i$th binary digit as the previously generated number.
 
 A considered alternative was to require a predefined time to elapse before the user is served with a number.
 This was rejected due to two factors;
-First, different computers, OS's, and implementations might behave slightly differently and hence it would require the time to be quite high or risk compromising the quality of the generated random numbers.
-Secondly, I aim to allow PMW to run on commodity hardware which means that the workload of the computer can possible change quite dramatic as the user uses his computer for other purposes while random numbers are being generated -- again fording the a pessimistic choice in time limit.
-It might be noted that the fact that the user is using his computer might actually increase the entropy much the same way as for the Linux device \texttt{/dev/random}.
-Although PMW uses it indirectly as the scheduler of the OS will generally ensure fairness between threads of execution in the long run and the user starts and stops these, thus potentially forcing the scheduler to move other threads (the PMW writing threads in particular) around, possible between physical computation units.
+First, different computers, operating systems (OS), and implementations might behave slightly differently and hence it would require the time to be quite high or risk compromising the quality of the generated random numbers.
+Secondly, I aim to allow PMW to run on commodity hardware which means that the workload of the computer can possible change quite dramatic as the user uses his computer for other purposes while random numbers are being generated -- again forcing the a pessimistic choice in time limit.
+It might be noted that the fact that the user is using his computer might actually increase the entropy much the same way as for the Linux device \devrandom{}.
+PMW uses this entropy indirectly compared to \devrandom{}.
+The thread scheduler of the OS will generally try to achieve a fair amount of execution time for each thread.
+Since the user of the computer is starting and stopping threads, the scheduler will move the execution of threads (the PMW writing threads in particular) around both in time and physical computation units (cores).
+E.g. if the user starts a new process the execution of a PMW writing thread might be delayed, thus potentially increase the entropy since this delay is very difficult to predict in advance.
 
 It is important that for all $i\in\left[0..\left|Mem\right|-1\right]:$ $T_{2i}$ and $T_{2i+1}$ are executed on different physical cores.
-Otherwise a pattern in the execution of the two threads might give itself away, provided a sufficient number of random numbers are generated.
+Otherwise, a pattern in the execution of the two threads might give itself away, provided a sufficient number of random numbers are generated.
 
 To test PMW a predefined number of random samples of constant size are requested and the time which it takes to generate these bytes logged.
 The throughput of the generator is calculated as the number of samples per time unit.
