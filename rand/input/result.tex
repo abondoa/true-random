@@ -4,7 +4,7 @@ To test the performance of RMW between 1 to 10,000,000 bytes are generated in di
 PMW is implemented in C++ and uses the standard library of C++ along with Boost C++ Libraries~\citep{boost}.
 The test cases are run on an Intel Core i7 2.93 GHz with 8 GB RAM operated by Windows 7 64 bit SP 1.
 
-The results of the performance tests are shown in Table~\ref{tab:tests}
+The results of the performance tests are shown in Figure~\ref{tab:tests}
 For comparison the standard library random number generator in C has a throughput of $\approx 7500$ samples/ms and \devrandom{} has a throughput $<0.001$ sample/ms $=1$ sample/s.
 Note that \devrandom{} is run on another computer running Ubuntu OS, with an initially empty pool of entropy.
 This computer is a server and hence has no directly connected keyboard or mouse.

@@ -8,7 +8,7 @@ This sequence will repeat itself after a given \emph{period}, albeit this is oft
 The period indicates the size of the sequence of numbers -- the PRNG will simply repeat the sequence if the required amount of pseudo-random numbers is greater than the period.
 These are usually very fast, but are not truly random and therefore not applicable for security oriented applications, such as cryptography.
 
-An alternative is to use physical conditions as a source of entropy in order to make a tru random number generator (RNG).
+An alternative is to use physical conditions as a source of entropy in order to make a true random number generator (RNG).
 Solutions in this direction include usage of photoevents~\citep{Martino91}, generation (and reading) of random noise~\citep{Holman97}, and reading atmospheric noise~\citep{random.org}.
 These methods for obtaining true random numbers require extra hardware to function.
 Furthermore, an attacker might be able to place a sensor near the one used by the RNG and thus have higher probability of guessing the generated numbers.
@@ -28,7 +28,7 @@ I call my approach \emph{Parallel Memory Writer} (PMW).
 
 The remainder of the paper is divided into four sections.
 First, \secref{sec:method} describes the details of how the random numbers are generated.
-\secref{sec:result} shows the result from performance tests of PMW.
+\secref{sec:result} shows the results from performance tests of PMW.
 These results are discussed and evaluated in \secref{sec:discussion}.
 Finally a conclusion is drawn in \secref{sec:conclusion} together with future research directions.
 

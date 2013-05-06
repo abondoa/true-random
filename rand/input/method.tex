@@ -1,6 +1,6 @@
 \section{Method}
 \label{sec:method}
-To generate highly unpredictable numbers I use the fact that predicting the order of action of different threads of execution can be extremely difficult even when the actual hardware is available.
+To generate highly unpredictable numbers I use the fact that predicting the interleaving of different threads of execution can be extremely difficult even when the actual hardware is available.
 Figure~\ref{fig:TrueRand} illustrates two threads of execution writing different values to the same bit in memory.
 When this bit in memory, $Mem_0$, is read at a some point in time, it is not possible to know in advance which value it contains without direct access to the internal hardware of the computer.
 
@@ -13,6 +13,9 @@ When this bit in memory, $Mem_0$, is read at a some point in time, it is not pos
 
 Now that we can construct a single unpredictable bit, the challenge is to expand it to generate larger sequences of memory with unpredictable value.
 To accomplish this the first step is simply to add more threads of execution, two to each bit of memory.
+To generate data of the size $s$ bits, $2s$ threads are required.
+The two first ($T_0$ and $T_1$) writes to the first bit of memory, the third and fourth to the second bit and so forth.
+
 Secondly we add a bitmap which indicates whether or not a bit has been touched.
 A bit is \emph{touched} when one of the two threads writing to it has actually written something to it.
 E.g. $Bitmap_0=0$ until either $T_0$ or $T_1$ has written to $Mem_0$.
