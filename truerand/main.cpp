@@ -49,6 +49,7 @@ int main(int argc, char** argv)
            << "count: " << samples << endl
            << "numbit: "<< bytes*8 << endl;
 	}
+    
 	switch(bytes)
 	{
 	case 1:
