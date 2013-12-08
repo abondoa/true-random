@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "BitGenerator.h"
-#include <exception>
+#include <stdexcept>
 
 namespace Random
 {
@@ -8,7 +8,7 @@ namespace Random
    {
       if(firstBit < 0 || firstBit > 1)
       {
-         throw std::exception("It's not a bit value: " + firstBit);
+         throw std::runtime_error("It's not a bit value: " + firstBit);
       }
       nextBit = firstBit;
    }

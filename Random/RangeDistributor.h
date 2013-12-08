@@ -2,6 +2,7 @@
 #include "Distributor.h"
 #include "RedistributionRequired.h"
 #include <limits>
+#include <stdexcept>
 
 namespace Random
 {
@@ -37,7 +38,7 @@ namespace Random
 	   {
 		  if(randomVector.size() != 1)
 		  {
-			 throw std::exception();
+			 throw std::runtime_error("");
 		  }
 		  return Distribute(randomVector[0]);
 	   }
@@ -54,7 +55,7 @@ namespace Random
 	   {
 		   if(max < min)
 		   {
-			   throw std::exception("max < min in RangeDistributor");
+			   throw std::runtime_error("max < min in RangeDistributor");
 		   }
 		   T range = max - min + 1;
 		   _remainder = _typeMax % range;

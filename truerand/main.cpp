@@ -1,6 +1,6 @@
 #include <iostream>
 #include <time.h>
-#include <boost\program_options.hpp>
+#include <boost/program_options.hpp>
 #include "../Random/RandomNumberGeneratorFactory.h"
 #include "../Random/Generator.h"
 
@@ -59,7 +59,8 @@ int main(int argc, char** argv)
 		break;
 	case 4:
 		if (vm.count("float")) {
-			generate(&RangeDistributor<unsigned int,float>(std::numeric_limits<unsigned int>::max(),0,0));
+            auto temp = RangeDistributor<unsigned int,float>(std::numeric_limits<unsigned int>::max(),0,0);
+			generate(&temp);
 		}
 		else
 		{
@@ -68,7 +69,8 @@ int main(int argc, char** argv)
 		break;
 	case 8:
 		if (vm.count("float")) {
-			generate(&RangeDistributor<unsigned long long,double>(std::numeric_limits<unsigned long long>::max(),0,0));
+            auto temp = RangeDistributor<unsigned long long,double>(std::numeric_limits<unsigned long long>::max(),0,0);
+			generate(&temp);
 		}
 		else
 		{
@@ -95,7 +97,7 @@ template <class T, class S> void generate(Distributor<T,S>* dist)
 	      for ever
 	      {
             T x = gen->Generate();
-            std::cout.write(reinterpret_cast<const char*>(&x), sizeof T);
+            std::cout.write(reinterpret_cast<const char*>(&x), sizeof(T));
 	      }
       }
       else
@@ -103,7 +105,7 @@ template <class T, class S> void generate(Distributor<T,S>* dist)
          for(long long i = 0 ; i < samples ; i++)
          {
             T x = gen->Generate();
-            std::cout.write(reinterpret_cast<const char*>(&x), sizeof T);
+            std::cout.write(reinterpret_cast<const char*>(&x), sizeof(T));
          }
       }
    }
