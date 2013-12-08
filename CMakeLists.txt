@@ -10,7 +10,7 @@ LINK_DIRECTORIES(C:/libs/boost_1_51_0/stage/lib)
 ENDIF(WIN32)
 
 IF(UNIX)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 ENDIF(UNIX)
 
 #add_subdirectory(Dieharder)

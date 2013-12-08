@@ -9,7 +9,7 @@ namespace Random
 	   {
 	   }
 
-	   ~RandomNumberGenerator(void)
+	   virtual ~RandomNumberGenerator(void)
 	   {
 	   }
 

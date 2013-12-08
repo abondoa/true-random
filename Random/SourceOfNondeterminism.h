@@ -12,7 +12,7 @@ namespace Random
    {
    public:
       SourceOfNondeterminism(void);
-      ~SourceOfNondeterminism(void);
+      virtual ~SourceOfNondeterminism(void);
       
       virtual vector<char> GetBytes(int) = 0;
    };

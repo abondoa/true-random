@@ -14,11 +14,11 @@ template <class T, class S> void generate(Distributor<T,S>* dist = 0);
 long long samples;
 long long seed;
 bool binary = false;
+bool dieharder = false;
 
 int main(int argc, char** argv)
 {
 	int bytes = 4;
-   bool dieharder = false;
 	po::options_description desc("Allowed options");
 	desc.add_options()
 		("help,h", "Produce help message")
@@ -49,7 +49,7 @@ int main(int argc, char** argv)
            << "count: " << samples << endl
            << "numbit: "<< bytes*8 << endl;
 	}
-    
+
 	switch(bytes)
 	{
 	case 1:
