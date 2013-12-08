@@ -1,4 +1,13 @@
 syntax: glob
+CMakeCache.txt
+*.orig
+*.a
+*.cmake
+*.sublime-project
+*.sublime-workspace
+*Makefile
+truerand/cmake_install.cmake
+truerand/truerand
 Random.sdf
 Random.sln
 Random/Debug/*
