@@ -1,5 +1,5 @@
 #pragma once
-#include "generator.h"
+#include "Generator.h"
 #include "SourceOfNondeterminism.h"
 #include "Distributor.h"
 

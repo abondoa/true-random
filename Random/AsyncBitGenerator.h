@@ -1,5 +1,5 @@
 #pragma once
-#include "bitgenerator.h"
+#include "BitGenerator.h"
 #include <boost/thread.hpp>
 
 namespace Random
